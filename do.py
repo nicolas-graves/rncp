@@ -70,8 +70,10 @@ certificateurs = pd.read_csv(
 )
 
 df = standard.xs("ACTIVE", level="Actif")
-# ["CAP", "CAPA", "BAC PRO", "BTS", "BTSA", "BTSMarit", "TP", "BP", "BMA", "BPJEPS", "CPJEPS", "DE", "DMA"])
 df = df.loc[idx[:, :, ["NIV3", "NIV4", "NIV5"]], :]
+# ["CAP", "CAPA", "BAC PRO", "BTS", "BTSA", "BTSMarit", "TP", "BP", "BMA", "BPJEPS", "CPJEPS", "DE", "DMA"])
+# Les DEUST sont gérés par le CSLMD.
+df = df.drop(df.loc[idx[:, ["DEUST"], :, :]])
 df = (
     df.join(rome, on="Numero_Fiche")
     .join(certificateurs, on="Numero_Fiche")
