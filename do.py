@@ -59,6 +59,7 @@ ministeres_certificateurs = {
     "MINISTERE DE LA JUSTICE": "MJustice",
     "MINISTERE DES ARMEES": "MArmees",
     "MINISTERE DE L' INTERIEUR ET DES OUTRE-MER": "MInterieur",
+    "MINISTERE DE LA CULTURE": "MCulture",
 }
 
 certificateurs = pd.read_csv(
@@ -83,7 +84,7 @@ df = df.loc[idx[:, :, :, list(ministeres_certificateurs.keys())]].rename(
     ministeres_certificateurs, level="Nom_Certificateur"
 )
 
-df.index.names = ["Fiche", "Libellé", "Niveau", "Certificateur", "ROME", "Intitulé"]
+df.index.names = ["Fiche", "Libellé", "Niveau", "Certificateur", "Intitulé", "ROME"]
 
 os.makedirs("outputs", exist_ok=True)
 df.to_excel("outputs/filtered_data.xlsx")
