@@ -12,7 +12,11 @@ zip_filename = f"data/{data_id}.zip"
 
 
 def local_file(dataset):
-    return glob.glob(f"data/export_fiches_CSV_{dataset.capitalize()}_*.csv")[0]
+    found_list = glob.glob(f"data/export_fiches_CSV_{dataset.capitalize()}_*.csv")
+    if found_list == []:
+        return False
+    else:
+        return found_list[0]
 
 
 os.makedirs("data", exist_ok=True)
@@ -22,7 +26,7 @@ if not ic(os.path.exists(zip_filename)):
     with open(zip_filename, "wb") as f:
         f.write(response.content)
 
-if not ic(os.path.exists(local_file("standard"))):
+if not ic(local_file("standard")):
     print(f"Extracting {zip_filename}...")
     with zipfile.ZipFile(zip_filename, "r") as z:
         z.extractall("data")
